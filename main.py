@@ -7,6 +7,7 @@ plataforma1 = Plataforma("SEBASDIOR CALVO")
 pelicula1 = Pelicula(101, "EL AUTISMO DE DIEGO GARCIA", 1.7, "Realidad")
 pelicula2 = Pelicula(102, "El pelo de Dior", 2.8, "Ciencia Ficción")
 
+
 pelicula1.agregar_Calif(5.0)
 pelicula1.agregar_Calif(4.5)
 
