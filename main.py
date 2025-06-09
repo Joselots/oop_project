@@ -20,7 +20,7 @@ pelicula2.agregar_Calif(3.9)
 plataforma1.agregar_video(pelicula1)
 plataforma1.agregar_video(pelicula2)
 
-serie1 = Serie(200, "Suits", 300, "Drama") 
+serie1 = Serie(200, "Suits", 500, "Drama") 
 temporada1=Temporada(1)
 episodio1=Episodio(212,"Harvey Spectre el cabron", 0.5,1)
 episodio1.agregar_Calif(5.0)
