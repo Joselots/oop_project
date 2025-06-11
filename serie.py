@@ -8,8 +8,9 @@ class Serie(Video):
         self.Temporadas.append(temporada)
 
     def mostrar_Info(self):
-        print(f"ID: {self.ID}")
-        print(f"Título: {self.Titulo}")
-        print(f"Duración: {self.Duracion} horas")
-        print(f"Género: {self.Genero}")
-        print(f"Promedio de calificación: {self.promedio_Calif():.2f}")
+        super().mostrar_Info()
+        print(f"Número de temporadas: {len(self.Temporadas)}")
+        for temporada in self.Temporadas:
+            print(f" Temporada {temporada.Numero}:")
+        for episodio in temporada.Episodios:
+            episodio.mostrar_Info()
