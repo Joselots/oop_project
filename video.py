@@ -23,6 +23,6 @@ class Video:
         print(f"Duración: {self.Duracion} horas")
         print(f"Género: {self.Genero}")
         print(f"Promedio de calificación: {self.promedio_Calif():.2f}")
-
+        print()
     def __reproducir_Video(self): 
         print(f"Reproduciendo '{self.Titulo}'...")
