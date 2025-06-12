@@ -54,86 +54,62 @@ plataforma1.agregar_video(serie2)
 
 
 def mostrar_menu():
-    print("\n--- MENÚ DE USUARIO ---")
-    print("1. Mostrar videos")
-    print("2. Mostrar peliculas")
-    print("3. Mostrar series")
-    print("4. Calificar pelicula")
-    print("5. Calificar temporada")
-    print("6. Calificar episodio")
-    print("7. Salir")
+    print("\nPLATAFORMA FINAL: PROGRAMACION ORIENTADA A OBJETOS")
+    print("1. Mostrar videos por calificación o género")
+    print("2. Mostrar episodios de una serie por calificación")
+    print("3. Mostrar películas por calificación")
+    print("4. Calificar un video por título")
+    print("0. Salir")
 
 while True:
     mostrar_menu()
     op = input("Elige una opción: ")
 
     if op == "1":
-        plataforma1.mostrar_videos()
+        filtro = input("¿Filtrar por calificación o por género? (c/g): ").lower()
+        if filtro == "c":
+            cal_min = float(input("Mostrar videos con calificación mayor o igual a: "))
+            for video in plataforma1.obtener_videos():
+                if video.promedio_Calif() >= cal_min:
+                    video.mostrar_Info()
+        elif filtro == "g":
+            genero = input("Género a buscar (ej. Acción, Drama): ").lower()
+            for video in plataforma1.obtener_videos():
+                if genero in video.Genero.lower():
+                    video.mostrar_Info()
+        else:
+            print("Opción inválida.")
 
     elif op == "2":
-        plataforma1.mostrar_peliculas()
+        nombre = input("Nombre de la serie: ").lower()
+        cal_min = float(input("Mostrar episodios con calificación mayor o igual a: "))
+        for video in plataforma1.obtener_videos():
+            if isinstance(video, Serie) and nombre in video.Titulo.lower():
+                for temp in video.temporadas:
+                    for ep in temp.episodios:
+                        if ep.promedio_Calif() >= cal_min:
+                            ep.mostrar_Info()
 
     elif op == "3":
-        plataforma1.mostrar_series()
+        cal_min = float(input("Mostrar películas con calificación mayor o igual a: "))
+        for video in plataforma1.obtener_videos():
+            if isinstance(video, Pelicula) and video.promedio_Calif() >= cal_min:
+                video.mostrar_Info()
 
     elif op == "4":
+        titulo = input("Escribe el título del video a calificar: ").lower()
         for video in plataforma1.obtener_videos():
-            if isinstance(video, Pelicula):
-                print(f"{video.ID} - {video.Titulo}")
-        id_peli = int(input("ID película: "))
-        cal = float(input("Calificación: "))
-        for video in plataforma1.obtener_videos():
-            if isinstance(video, Pelicula) and video.ID == id_peli:
+            if titulo in video.Titulo.lower():
+                cal = float(input("Calificación: "))
                 video.agregar_Calif(cal)
-
-    elif op == "5":
-        for video in plataforma1.obtener_videos():
-            if isinstance(video, Serie):
-                print(f"{video.ID} - {video.Titulo}")
-        id_serie = int(input("ID serie: "))
-        cal = float(input("Calificación: "))
-        for video in plataforma1.obtener_videos():
-            if isinstance(video, Serie) and video.ID == id_serie:
-                video.agregar_Calif(cal)
-
-    elif op == "6":
-        print("\nSeries disponibles:")
-        for video in plataforma1.obtener_videos():
-            if isinstance(video, Serie):
-                print(f"{video.ID} - {video.Titulo}")
-        
-        id_serie = int(input("Elige el ID de la serie: "))
-        
-        serie_seleccionada = None
-        for video in plataforma1.obtener_videos():
-            if isinstance(video, Serie) and video.ID == id_serie:
-                serie_seleccionada = video
+                print("Calificación agregada.")
                 break
-        
-        if serie_seleccionada:
-            print("\nTemporadas disponibles:")
-            for temp in serie_seleccionada.temporadas:
-                print(f"Temporada {temp.numero}")
-            num_temp = int(input("Elige el número de temporada: "))
-            temporada = serie_seleccionada.obtener_temporada(num_temp)
-            
-            if temporada:
-                print("\nEpisodios disponibles:")
-                for ep in temporada.episodios:
-                    print(f"Episodio {ep.numero}: {ep.Titulo}")
-                
-                num_epi = int(input("Elige el número de episodio: "))
-                ep = temporada.obtener_episodio(num_epi)
-                
-                if ep:
-                    cal = float(input("Calificación: "))
-                    ep.agregar_Calif(cal)
-                    print("Calificación agregada.")
-                else:
-                    print("Episodio no encontrado.")
-            else:
-                print("Temporada no encontrada.")
         else:
-            print("Serie no encontrada.")
-    elif op=="7":
+            print("Video no encontrado.")
+
+    elif op == "0":
+        print("Gracias por usar la plataforma.")
         break
+
+    else:
+        print("Opción inválida.")

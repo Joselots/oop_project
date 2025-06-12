@@ -1,4 +1,7 @@
-class Video:
+
+from ComponenteVideo import ComponenteVideo
+
+class Video(ComponenteVideo):
     def __init__(self, id: int, titulo: str, duracion: float, genero: str):
         self.ID = id
         self.Titulo = titulo
@@ -26,3 +29,5 @@ class Video:
         print()
     def __reproducir_Video(self): 
         print(f"Reproduciendo '{self.Titulo}'...")
+
+
